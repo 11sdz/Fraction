@@ -5,6 +5,7 @@
 #include <stdexcept>
 #include <limits.h>
 #include <sstream>
+#include <math.h>
 using namespace std;
 
 #include "sources/Fraction.hpp"
@@ -40,7 +41,7 @@ TEST_CASE("Binary operators"){
     Fraction a(7,10);
     Fraction b(10,25);
     Fraction c(1,2);
-    float af=7/10,bf=10/25,cf=1/2;
+    Fraction d(1,3);
 
     Fraction ans=a+b;
     CHECK(((ans.getNum()==11) && (ans.getDen()==10)));
@@ -54,20 +55,12 @@ TEST_CASE("Binary operators"){
     ans=a-c;
     CHECK(((ans.getNum()==1) && (ans.getDen()==5)));
 
-}
-TEST_CASE("Unary operators") {
-    Fraction a(0, 10);
-    int n=0;
-    for (int i = 0; i < 5; ++i) {
-        CHECK((Fraction(n++,10)==a++));
-        CHECK((Fraction(++n,10)==++a));
+    for (int i = 1; i <= 5; ++i) {
+        ans=d+1;
+        d=ans;
+        CHECK((ans.getNum()==((3*i)+1)));
+        CHECK((ans.getDen()==3));
     }
-    CHECK((a==Fraction(10,10)));
-    for (int i = 0; i < 5; ++i) {
-        CHECK((Fraction(n--,10)==a--));
-        CHECK((Fraction(--n,10)==--a));
-    }
-    CHECK((a==Fraction(0,10)));
 }
 
 TEST_CASE("Output method"){
@@ -75,6 +68,20 @@ TEST_CASE("Output method"){
     std::ostringstream out;
     out<<half;
     CHECK(((out.str())==("1/2")));
+}
+/**
+ * only 3 numbers after the decimal point
+ */
+TEST_CASE("Floats"){
+    float af=1/3;// 0.3333333333333...
+    Fraction id(1,1);
+    Fraction a=id*af;
+    CHECK((a.getNum()==333));
+    CHECK((a.getDen()==1000));
+    af=M_PI; //Pi 3.1415926...
+    a=af*id;
+    CHECK((a.getNum()==3141));
+    CHECK((a.getDen()==1000));
 }
 
 /**
@@ -106,6 +113,20 @@ TEST_CASE("Relational operators"){
  * All tests from below will not pass if Relational Operators will not pass.
  * *=========================================================================
  */
+TEST_CASE("Unary operators") {
+    Fraction a(0, 10);
+    int n=0;
+    for (int i = 0; i < 5; ++i) {
+        CHECK((Fraction(n++,10)==a++));
+        CHECK((Fraction(++n,10)==++a));
+    }
+    CHECK((a==Fraction(10,10)));
+    for (int i = 0; i < 5; ++i) {
+        CHECK((Fraction(n--,10)==a--));
+        CHECK((Fraction(--n,10)==--a));
+    }
+    CHECK((a==Fraction(0,10)));
+}
 
 TEST_CASE("Reduced Forms"){
     Fraction q1(2,8);
@@ -149,10 +170,9 @@ TEST_CASE("Associative property"){
 TEST_CASE("Commutative property"){
     Fraction a(1,3);
     Fraction b(2,5);
-    float af=1/3,bf=2/5;
+
     CHECK(((a+b)==(b+a)));
     CHECK(((a*b)==(b*a)));
-    CHECK(((a*bf)==(b*af)));
 }
 /**
  * distributive property
@@ -162,11 +182,9 @@ TEST_CASE("Distributive property"){
     Fraction a(1,3);
     Fraction b(2,5);
     Fraction c(7,11);
-    float af=1/3,bf=2/5,cf=7/11;
     Fraction ans(1,1);
     CHECK((ans==(a*(b+c))));
     CHECK(((a*(b+c))==(a*b+a*c)));
-    CHECK(((a*(bf+c))==(af*b+af*c)));
 }
 /**
  * identity element
@@ -177,14 +195,10 @@ TEST_CASE("Identity element"){
     Fraction a(1,3);
     Fraction i(1,1);
     Fraction zero(0,1);
-    float af=1/3;
     CHECK(((i*a)==a));
     CHECK(((a/i)==a));
     CHECK(((a+0)==a));
     CHECK(((a+zero)==a));
-    CHECK(((i*af)==a));
-    CHECK(((af/i)==a));
-    CHECK(((af+zero)==a));
 }
 /**
  * inverse element
