@@ -14,10 +14,14 @@ namespace ariel{
 class Fraction{
     private:
         int num,den;
-    public:
-        int getNum() const;
+        void reducedForm();
+        bool checkOverflow(int num1,int num2,int den1,int den2);
 
-        int getDen() const;
+    public:
+        Fraction(float other);
+        int getNumerator() const;
+
+        int getDenominator() const;
         Fraction(int,int);
         Fraction();
 
@@ -38,12 +42,12 @@ class Fraction{
         Fraction operator++(int);
         Fraction operator--(int);
 
-        bool operator==(Fraction other);
+        /*bool operator==(Fraction other);
         bool operator!=(Fraction other);
         bool operator<=(Fraction other);
         bool operator>=(Fraction other);
         bool operator<(Fraction other);
-        bool operator>(Fraction other);
+        bool operator>(Fraction other);*/
 
     friend Fraction operator+(float flo,Fraction fra);
     friend Fraction operator-( float flo, Fraction fra);
@@ -64,6 +68,13 @@ class Fraction{
     friend bool operator>=( Fraction fra, float flo);
     friend bool operator<( Fraction fra, float flo);
     friend bool operator>( Fraction fra, float flo);
+
+    friend bool operator==( Fraction lhs, Fraction rhs);
+    friend bool operator!=( Fraction lhs, Fraction rhs);
+    friend bool operator<=( Fraction lhs, Fraction rhs);
+    friend bool operator>=( Fraction lhs, Fraction rhs);
+    friend bool operator<( Fraction lhs, Fraction rhs);
+    friend bool operator>( Fraction lhs, Fraction rhs);
 
 
     friend istream &operator>>(istream &istream1, Fraction &fra);

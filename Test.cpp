@@ -12,6 +12,17 @@ using namespace std;
 #include "doctest.h"
 using namespace ariel;
 /**
+ * testing constructor
+ */
+TEST_CASE("Constructor"){
+    Fraction a(1,-3);
+    CHECK((a.getNumerator() == -1));
+    CHECK((a.getDenominator() == 3));
+    Fraction b(22,44);
+    CHECK((b.getNumerator() == 1));
+    CHECK((b.getDenominator() == 2));
+}
+/**
  * Cannot divide by 0 , denominator cannot be 0.
  */
 TEST_CASE("denominator cannot be zero, cannot divide by zero"){
@@ -30,8 +41,8 @@ TEST_CASE("going over the limit of INT_MAX/MIN"){
     Fraction min(INT_MIN,1);
     max++;
     min--;
-    CHECK((max.getNum()==INT_MIN));
-    CHECK((min.getNum()==INT_MAX));
+    CHECK((max.getNumerator() == INT_MIN));
+    CHECK((min.getNumerator() == INT_MAX));
 }
 
 /**
@@ -44,22 +55,23 @@ TEST_CASE("Binary operators"){
     Fraction d(1,3);
 
     Fraction ans=a+b;
-    CHECK(((ans.getNum()==11) && (ans.getDen()==10)));
+    cout<<ans<<endl;
+    CHECK(((ans.getNumerator() == 11) && (ans.getDenominator() == 10)));
 
     ans=a*c;
-    CHECK(((ans.getNum()==7) && (ans.getDen()==20)));
+    CHECK(((ans.getNumerator() == 7) && (ans.getDenominator() == 20)));
 
     ans=a/c;
-    CHECK(((ans.getNum()==7) && (ans.getDen()==5)));
+    CHECK(((ans.getNumerator() == 7) && (ans.getDenominator() == 5)));
 
     ans=a-c;
-    CHECK(((ans.getNum()==1) && (ans.getDen()==5)));
+    CHECK(((ans.getNumerator() == 1) && (ans.getDenominator() == 5)));
 
     for (int i = 1; i <= 5; ++i) {
         ans=d+1;
         d=ans;
-        CHECK((ans.getNum()==((3*i)+1)));
-        CHECK((ans.getDen()==3));
+        CHECK((ans.getNumerator() == ((3 * i) + 1)));
+        CHECK((ans.getDenominator() == 3));
     }
 }
 
@@ -76,12 +88,12 @@ TEST_CASE("Floats"){
     float af=1/3;// 0.3333333333333...
     Fraction id(1,1);
     Fraction a=id*af;
-    CHECK((a.getNum()==333));
-    CHECK((a.getDen()==1000));
+    CHECK((a.getNumerator() == 333));
+    CHECK((a.getDenominator() == 1000));
     af=M_PI; //Pi 3.1415926...
     a=af*id;
-    CHECK((a.getNum()==3141));
-    CHECK((a.getDen()==1000));
+    CHECK((a.getNumerator() == 3141));
+    CHECK((a.getDenominator() == 1000));
 }
 
 /**
@@ -132,10 +144,10 @@ TEST_CASE("Reduced Forms"){
     Fraction q1(2,8);
     Fraction q2(4,16);
     Fraction ans=q1+q2;
-    CHECK(((ans.getNum()==1) && (ans.getDen()==2)));
+    CHECK(((ans.getNumerator() == 1) && (ans.getDenominator() == 2)));
 
-    ans=1/4*q1;
-    CHECK(((ans.getNum()==1) && (ans.getDen()==16)));
+    ans=(1/4)*q1;
+    CHECK(((ans.getNumerator() == 1) && (ans.getDenominator() == 16)));
 
     Fraction a(6,15);
     Fraction b(15,20);
@@ -143,10 +155,16 @@ TEST_CASE("Reduced Forms"){
     int denominator=60;//2*2*3*5 LCM- Least Common multiplier
     int numerator=6*4+15*3+11*5;
     ans=a+b+c;
-    CHECK(((ans.getNum()==numerator) && (ans.getDen()==denominator)));
+    CHECK(((ans.getNumerator() == numerator) && (ans.getDenominator() == denominator)));
 
     ans=a*b;
-    CHECK(((ans.getNum()==3) && (ans.getDen()==10)));
+    CHECK(((ans.getNumerator() == 3) && (ans.getDenominator() == 10)));
+
+    Fraction minus_a(6,-15);
+    Fraction id(1,1);
+    ans=minus_a*id;
+    CHECK(((ans.getNumerator() == -2) && (ans.getDenominator() == 5)));
+
 }
 /**
  * adding and multiplying are associative property
