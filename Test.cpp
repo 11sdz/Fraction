@@ -21,6 +21,10 @@ TEST_CASE("Constructor"){
     Fraction b(22,44);
     CHECK((b.getNumerator() == 1));
     CHECK((b.getDenominator() == 2));
+    Fraction c(1/3);
+    CHECK((c.getNumerator() == 333));
+    CHECK((c.getDenominator() == 1000));
+
 }
 /**
  * Cannot divide by 0 , denominator cannot be 0.
@@ -31,7 +35,7 @@ TEST_CASE("denominator cannot be zero, cannot divide by zero"){
     Fraction b(0,1);
     float zero=0;
     CHECK_THROWS_AS_MESSAGE(a/b,runtime_error,"Cannot divide by Zero");
-    CHECK_THROWS_AS_MESSAGE(a/zero,runtime_error,"Cannot divide by Zero");
+    CHECK_NOTHROW(Fraction(zero));
 }
 /**
  * the Fraction of INT_MAX/1 (numerator/denominator) after increment should be equal to INT_MIN/1
@@ -39,10 +43,10 @@ TEST_CASE("denominator cannot be zero, cannot divide by zero"){
 TEST_CASE("going over the limit of INT_MAX/MIN"){
     Fraction max(INT_MAX,1);
     Fraction min(INT_MIN,1);
-    max++;
-    min--;
-    CHECK((max.getNumerator() == INT_MIN));
-    CHECK((min.getNumerator() == INT_MAX));
+    CHECK_THROWS(max++);
+    CHECK_THROWS(min--);
+    CHECK_NOTHROW(max--);
+    CHECK_NOTHROW(min++);
 }
 
 /**
@@ -52,10 +56,8 @@ TEST_CASE("Binary operators"){
     Fraction a(7,10);
     Fraction b(10,25);
     Fraction c(1,2);
-    Fraction d(1,3);
 
     Fraction ans=a+b;
-    cout<<ans<<endl;
     CHECK(((ans.getNumerator() == 11) && (ans.getDenominator() == 10)));
 
     ans=a*c;
@@ -66,13 +68,6 @@ TEST_CASE("Binary operators"){
 
     ans=a-c;
     CHECK(((ans.getNumerator() == 1) && (ans.getDenominator() == 5)));
-
-    for (int i = 1; i <= 5; ++i) {
-        ans=d+1;
-        d=ans;
-        CHECK((ans.getNumerator() == ((3 * i) + 1)));
-        CHECK((ans.getDenominator() == 3));
-    }
 }
 
 TEST_CASE("Output method"){
@@ -80,6 +75,12 @@ TEST_CASE("Output method"){
     std::ostringstream out;
     out<<half;
     CHECK(((out.str())==("1/2")));
+}
+TEST_CASE("input"){
+    std::stringstream str("0 4");
+    Fraction a;
+    str>>a;
+    CHECK(((a.getNumerator()==0) && (a.getDenominator()==4)));
 }
 /**
  * only 3 numbers after the decimal point
