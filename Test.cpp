@@ -109,14 +109,23 @@ TEST_CASE("Relational operators"){
                 CHECK((a>b));
                 CHECK((a>=b));
                 CHECK((a!=b));
+                CHECK_FALSE((a<b));
+                CHECK_FALSE((a<=b));
+                CHECK_FALSE((a==b));
             }else if((j-1)==1){
                 CHECK((a==b));
                 CHECK((a<=b));
                 CHECK((a>=b));
+                CHECK_FALSE((a<b));
+                CHECK_FALSE((a>b));
+                CHECK_FALSE((a!=b));
             }else{
                 CHECK((a<b));
                 CHECK((a<=b));
                 CHECK((a!=b));
+                CHECK_FALSE((a>b));
+                CHECK_FALSE((a>=b));
+                CHECK_FALSE((a==b));
             }
         }
     }
