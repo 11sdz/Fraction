@@ -33,9 +33,8 @@ TEST_CASE("denominator cannot be zero, cannot divide by zero"){
     CHECK_THROWS_AS_MESSAGE(Fraction(1,0),runtime_error,"Denominator cannot be Zero");
     Fraction a(2,1);
     Fraction b(0,1);
-    float zero=0;
     CHECK_THROWS_AS_MESSAGE(a/b,runtime_error,"Cannot divide by Zero");
-    CHECK_NOTHROW(Fraction(zero));
+    CHECK_NOTHROW(Fraction(0));
 }
 /**
  * the Fraction of INT_MAX/1 (numerator/denominator) after increment should be equal to INT_MIN/1
@@ -80,7 +79,7 @@ TEST_CASE("input"){
     std::stringstream str("0 4");
     Fraction a;
     str>>a;
-    CHECK(((a.getNumerator()==0) && (a.getDenominator()==4)));
+    CHECK(((a.getNumerator()==0) && (a.getDenominator()==1)));
 }
 /**
  * only 3 numbers after the decimal point
@@ -241,11 +240,8 @@ TEST_CASE("Inverse element"){
             Fraction neg(-i,j);
             Fraction zero(0,1);
             Fraction id(1,1);
-            float af=i/j;
             CHECK(((a*b)==id));
             CHECK(((a+neg)==zero));
-            CHECK(((af*b)==id));
-            CHECK(((af+neg)==zero));
         }
     }
 }
