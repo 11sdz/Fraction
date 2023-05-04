@@ -16,16 +16,25 @@ Write a class named Fraction that represents a fraction of two integers. Overloa
 
 דוגמאות לפעולת המחלקה ניתן למצוא ב-[Demo.cpp](Demo.cpp).
 
-בשלב ב עליכם לעבור את כל הבדיקות ולכתוב מימוש מלא 
+בשלב א עליכם לכתוב כותרות ובדיקות-יחידה מקיפות. 
 
 כיתבו את כל הקבצים הדרושים כך שהפקודות הבאות יעבדו ללא שגיאות:
 
 <div dir='ltr'>
 
-    bash grade
+    make demo && ./demo
+	make test && ./test
 
 </div>
 
+מומלץ גם להריץ:
+
+<div dir='ltr'>
+
+    make tidy
+    make valgrind
+
+</div>
 
 שימו לב:
 אין לשנות קבצים קיימים, אלא רק להוסיף קבצים חדשים.
