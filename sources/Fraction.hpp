@@ -9,13 +9,15 @@
 
 using namespace std;
 namespace ariel{
-
+/*
+ * Fraction class - represents Fraction by Numerator/Denominator
+ */
 }
 class Fraction{
     private:
         int num,den;
         void reducedForm();
-        bool checkOverflow(int num1,int num2,int den1,int den2);
+        bool checkOverflow(int num1,int num2,int den1,int num4);
 
     public:
         Fraction(float other);
@@ -25,7 +27,7 @@ class Fraction{
         Fraction(int,int);
         Fraction();
 
-        Fraction& operator-();
+        //Fraction& operator-();
 
         Fraction operator+(Fraction other);
         Fraction operator-(Fraction other);
@@ -41,13 +43,6 @@ class Fraction{
         Fraction& operator--();
         Fraction operator++(int);
         Fraction operator--(int);
-
-        /*bool operator==(Fraction other);
-        bool operator!=(Fraction other);
-        bool operator<=(Fraction other);
-        bool operator>=(Fraction other);
-        bool operator<(Fraction other);
-        bool operator>(Fraction other);*/
 
     friend Fraction operator+(float flo,Fraction fra);
     friend Fraction operator-( float flo, Fraction fra);
@@ -79,5 +74,6 @@ class Fraction{
 
     friend istream &operator>>(istream &istream1, Fraction &fra);
     friend ostream &operator<<(ostream &ostream1, const Fraction &fra);
+
 };
 #endif //FRACTION_FRACTION_HPP

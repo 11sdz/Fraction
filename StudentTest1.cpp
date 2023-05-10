@@ -25,7 +25,7 @@ TEST_CASE("Fraction object initialization & Getters return expected values") {
     // Check that a Fraction can't be created if denominator is 0
     CHECK_THROWS(Fraction(1,0));
 }
-
+//gcd 2 lcm 4
 TEST_CASE("Fraction addition test") {
     Fraction a(1, 2), b(1, 4); 
     Fraction c = a + b; // 1/2 + 1/4 = 3/4
